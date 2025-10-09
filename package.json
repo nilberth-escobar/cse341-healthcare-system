@@ -1,0 +1,45 @@
+{
+  "name": "hospital-management-system-api",
+  "version": "1.0.0",
+  "description": "Professional Hospital Management System API",
+  "homepage": "https://github.com/nilberth-escobar/cse341-healthcare-system#readme",
+  "bugs": {
+    "url": "https://github.com/nilberth-escobar/cse341-healthcare-system/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilberth-escobar/cse341-healthcare-system.git"
+  },
+  "license": "ISC",
+  "author": "Nilberth Rafael Escobar Mérida",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.0",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.2",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
+  }
+}
