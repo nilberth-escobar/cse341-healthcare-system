@@ -497,7 +497,7 @@ const rateLimitSensitive = (maxAttempts = 5, windowMs = 15 * 60 * 1000) => {
 
 
 // middleware/validationMiddleware.js
-const { validationResult } = require('express-validator');
+const { validationResult, param, query } = require('express-validator');
 
 // Utilidad: Luhn para NPI / checks
 function luhnCheck(numStr) {
@@ -622,6 +622,48 @@ const customValidators = {
   }
 };
 
+const validatePagination = [
+  query('page')
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage('Page must be a positive integer'),
+
+  query('limit')
+    .optional()
+    .isInt({ min: 1, max: 100 })
+    .withMessage('Limit must be between 1 and 100'),
+
+  query('sortOrder')
+    .optional()
+    .isIn(['asc', 'desc'])
+    .withMessage('Sort order must be asc or desc')
+];
+
+const validateDateRange = [
+  query('startDate')
+    .optional()
+    .isISO8601()
+    .withMessage('Invalid start date format'),
+
+  query('endDate')
+    .optional()
+    .isISO8601()
+    .withMessage('Invalid end date format')
+    .custom((value, { req }) => {
+      if (req.query.startDate && value) {
+        return new Date(value) >= new Date(req.query.startDate);
+      }
+      return true;
+    })
+    .withMessage('End date must be after start date')
+];
+
+const validateObjectId = (paramName) => [
+  param(paramName)
+    .isMongoId()
+    .withMessage(`Invalid ${paramName}`)
+];
+
 // Middleware para devolver errores de express-validator de forma uniforme
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -648,5 +690,8 @@ module.exports = {
   refreshToken,
   rateLimitSensitive,
   customValidators,
+  validatePagination,
+  validateDateRange,
+  validateObjectId,
   handleValidationErrors
 };
