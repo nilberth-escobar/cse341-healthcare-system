@@ -44,7 +44,6 @@ const PORT = process.env.PORT || 3000;
 
 // Security middleware
 app.use(helmet());
-app.use(mongoSanitize());
 app.use(compression());
 
 // Rate limiting
@@ -75,6 +74,9 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Mongo sanitize should not affect Swagger docs, so limit it to API routes
+app.use('/api', mongoSanitize());
+
 // Session configuration for Passport
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your-secret-key',
@@ -94,15 +96,14 @@ app.use(passport.session());
 // MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hospital_management', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/hospital_management';
+    await mongoose.connect(mongoUri);
     logger.info('MongoDB connected successfully');
     console.log('✅ MongoDB connected successfully');
   } catch (error) {
-    logger.error('MongoDB connection error:', error);
+    logger.error(`MongoDB connection error: ${error.message}`, { error });
     console.error('❌ MongoDB connection error:', error);
+    console.error('ℹ️ Please ensure your MongoDB instance is running and the MONGODB_URI environment variable is set correctly.');
     process.exit(1);
   }
 };

@@ -573,7 +573,6 @@ labOrderSchema.methods.calculateBilling = function() {
 // Indexes
 labOrderSchema.index({ patient: 1, orderDate: -1 });
 labOrderSchema.index({ doctor: 1, orderDate: -1 });
-labOrderSchema.index({ labOrderId: 1 });
 labOrderSchema.index({ status: 1 });
 labOrderSchema.index({ priority: 1 });
 labOrderSchema.index({ 'testsRequested.testCode': 1 });

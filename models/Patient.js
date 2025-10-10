@@ -323,8 +323,6 @@ patientSchema.methods.isInsuranceValid = function() {
 };
 
 // Indexes
-patientSchema.index({ userId: 1 });
-patientSchema.index({ patientId: 1 });
 patientSchema.index({ 'contactInfo.email': 1 });
 patientSchema.index({ 'contactInfo.phone': 1 });
 patientSchema.index({ lastName: 1, firstName: 1 });

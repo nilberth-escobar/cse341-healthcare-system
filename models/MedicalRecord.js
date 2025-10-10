@@ -594,7 +594,6 @@ medicalRecordSchema.methods.revokeAccess = function(userId) {
 medicalRecordSchema.index({ patient: 1, visitDate: -1 });
 medicalRecordSchema.index({ doctor: 1, visitDate: -1 });
 medicalRecordSchema.index({ appointment: 1 });
-medicalRecordSchema.index({ recordId: 1 });
 medicalRecordSchema.index({ 'assessment.diagnosis.code': 1 });
 medicalRecordSchema.index({ isFinalized: 1 });
 

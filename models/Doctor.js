@@ -396,9 +396,6 @@ doctorSchema.methods.addReview = function(patientId, rating, comment) {
 };
 
 // Indexes
-doctorSchema.index({ userId: 1 });
-doctorSchema.index({ doctorId: 1 });
-doctorSchema.index({ licenseNumber: 1 });
 doctorSchema.index({ specialty: 1 });
 doctorSchema.index({ 'contactInfo.email': 1 });
 doctorSchema.index({ lastName: 1, firstName: 1 });
