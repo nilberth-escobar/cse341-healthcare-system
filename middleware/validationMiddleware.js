@@ -664,6 +664,58 @@ const validateObjectId = (paramName) => [
     .withMessage(`Invalid ${paramName}`)
 ];
 
+const validateAppointmentSlot = (req, res, next) => {
+  try {
+    const { dateTime, newDateTime } = req.body || {};
+    const requiresDateValidation = req.method !== 'PUT' || Boolean(dateTime);
+    const targetDate = dateTime || newDateTime;
+
+    if (!targetDate) {
+      if (!requiresDateValidation) {
+        return next();
+      }
+
+      return res.status(400).json({
+        error: 'Invalid Request',
+        message: 'Appointment date and time is required'
+      });
+    }
+
+    const appointmentDate = new Date(targetDate);
+
+    if (Number.isNaN(appointmentDate.getTime())) {
+      return res.status(400).json({
+        error: 'Invalid Date',
+        message: 'Appointment date and time must be a valid date'
+      });
+    }
+
+    const now = new Date();
+    if (requiresDateValidation && appointmentDate < now) {
+      return res.status(400).json({
+        error: 'Invalid Time',
+        message: 'Appointments must be scheduled for a future time'
+      });
+    }
+
+    const minutes = appointmentDate.getMinutes();
+    if (minutes % 5 !== 0) {
+      return res.status(400).json({
+        error: 'Invalid Time Slot',
+        message: 'Appointment start times must align with 5 minute increments'
+      });
+    }
+
+    return next();
+  } catch (error) {
+    console.error('validateAppointmentSlot error:', error);
+    return res.status(500).json({
+      error: 'Validation Error',
+      message: 'Failed to validate appointment slot'
+    });
+  }
+};
+
 // Middleware para devolver errores de express-validator de forma uniforme
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -693,5 +745,6 @@ module.exports = {
   validatePagination,
   validateDateRange,
   validateObjectId,
+  validateAppointmentSlot,
   handleValidationErrors
 };
