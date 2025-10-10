@@ -481,7 +481,6 @@ prescriptionSchema.methods.generateQRCode = function() {
 // Indexes
 prescriptionSchema.index({ patient: 1, issueDate: -1 });
 prescriptionSchema.index({ doctor: 1, issueDate: -1 });
-prescriptionSchema.index({ prescriptionId: 1 });
 prescriptionSchema.index({ status: 1 });
 prescriptionSchema.index({ expiryDate: 1 });
 prescriptionSchema.index({ 'medicationDetails.drugName': 1 });

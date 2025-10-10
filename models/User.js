@@ -119,9 +119,6 @@ userSchema.virtual('profile', {
 });
 
 // Indexes
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
-userSchema.index({ githubId: 1 });
 userSchema.index({ role: 1 });
 
 // Check if account is locked
