@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Finiquito y Liquidación</string>
+    <string name="salary_label">Salario mensual (MXN)</string>
+    <string name="days_worked_label">Días trabajados en el año</string>
+    <string name="years_service_label">Años de servicio</string>
+    <string name="bonus_days_label">Días de aguinaldo</string>
+    <string name="vacation_days_label">Días de vacaciones anuales</string>
+    <string name="vacation_bonus_label">Prima vacacional (%)</string>
+    <string name="calculate_button">Calcular</string>
+    <string name="finiquito_result">Finiquito estimado</string>
+    <string name="liquidacion_result">Liquidación estimada</string>
+</resources>
